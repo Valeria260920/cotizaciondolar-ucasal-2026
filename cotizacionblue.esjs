@@ -1,0 +1,38 @@
+importar {Terminal} desde '@es-js/terminal';
+importar {obtenerJson} desde 'https://desarrollo-aplicaciones.vercel.app/2024/code/obtener-json.js';
+importar {validarSecreto} desde 'https://desarrollo-aplicaciones.vercel.app/2024/code/validar-secreto.js';
+
+asincrono funcion inicio() {
+    Terminal.escribir('Hola! Ingresa la palabra secreta:');
+    
+    var secreto = esperar Terminal.leer();
+    
+    var dni = '40566571';
+    
+    // Ingresa tu DNI aquí
+    si (esperar validarSecreto(dni, secreto)) {
+        esperar mostrarCotizacion();
+    } sino {
+        Terminal.escribir('Palabra secreta inválida');
+    }
+    
+    Terminal.escribir('Presiona ENTER para volver a ingresar');
+    
+    esperar Terminal.leerEnter();
+    
+    Terminal.limpiar();
+    
+    inicio();
+}
+
+asincrono funcion mostrarCotizacion() {
+    const dolarBlue = esperar obtenerJson('https://dolarapi.com/v1/dolares/blue');
+    
+    Terminal.escribir('Cotizacion del dolar Blue en Argentina');
+    Terminal.escribir('Compra:  $' + dolarBlue.compra);
+    Terminal.escribir('Venta:  $ ' + dolarBlue.venta);
+    Terminal.escribir('Promedio:  $' + (dolarBlue.compra + dolarBlue.venta) / 2);
+    Terminal.escribir('Fecha:  ' + dolarBlue.fechaActualizacion);
+}
+
+inicio();
