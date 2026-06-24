@@ -1,18 +1,10 @@
 import { defineConfig } from 'vite'
+import esjs from '@es-js/vite-plugin-esjs'
 
 export default defineConfig({
-  esbuild: {
-    loader: 'jsx',
-    include: /.*\.jsx?$/,
-    exclude: [],
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      loader: {
-        '.js': 'jsx',
-      },
-    },
-  },
+  plugins: [
+    esjs(),
+  ],
   build: {
     target: 'esnext'
   }
